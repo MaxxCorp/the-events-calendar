@@ -96,6 +96,32 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	}
 
 	/**
+	 * Inserts one or more venues.
+	 *
+	 * @param int|array $data Either an existing linked post ID or the linked post data or an array of the previous options.
+	 *
+	 * @return false|array|WP_Error `false` if the linked post data is empty, the linked post ID (in an array as requested by the
+	 *                              linked posts engine) or a `WP_Error` if the linked post insertion failed.
+	 *
+	 */
+	public function insert( $data ) {
+		$data = (array) $data;
+
+		$inserted = [];
+		foreach ( $data as $entry ) {
+			$venue_id = parent::insert( $entry );
+
+			if ( $venue_id instanceof WP_Error ) {
+				return $venue_id;
+			}
+
+			$inserted[] = $venue_id;
+		}
+
+		return [ $this->get_id_index() => wp_list_pluck( $inserted, $this->get_id_index() ) ];
+	}
+
+	/**
 	 * Returns an array in the format used by Swagger 2.0.
 	 *
 	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
