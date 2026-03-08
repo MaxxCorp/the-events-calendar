@@ -46,6 +46,7 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 		$this->container->singleton( 'events.editor.blocks.event-tags', Tribe__Events__Editor__Blocks__Event_Tags::class, [ 'load' ] );
 		$this->container->singleton( 'events.editor.blocks.event-website', Tribe__Events__Editor__Blocks__Event_Website::class, [ 'load' ] );
 		$this->container->singleton( 'events.editor.blocks.featured-image', Tribe__Events__Editor__Blocks__Featured_Image::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-description', Tribe__Events__Editor__Blocks__Event_Description::class, [ 'load' ] );
 	}
 
 	public function call_singletons() {
@@ -82,6 +83,7 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-tags' ), 'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-website' ), 'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.featured-image' ), 'register' ] );
+		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-description' ), 'register' ] );
 	}
 
 	/**
